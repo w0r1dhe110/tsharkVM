@@ -5,7 +5,10 @@ Vagrant.configure("2") do |config|
     v.memory = 4096
     v.cpus = 2
   end
-  config.disksize.size = '50GB'
+   # Increase the default disk size of the debian image (50GB) to 100GB
+  config.disksize.size = "100GB"
+  # Run a script on provisioning the box to format the file system
+  config.vm.provision "shell", path: "disk-extend.sh"
   config.vm.network "forwarded_port", guest: 5601, host_ip: "127.0.0.1", host: 15601
   config.vm.network "forwarded_port", guest: 17570, host_ip: "127.0.0.1", host: 17570
   config.vm.provision "shell", path: "initialize.sh"
